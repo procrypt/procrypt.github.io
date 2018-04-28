@@ -96,12 +96,12 @@ With Ansible Container, you are no longer limited by Dockerfile. You can now app
     </item>
     
     <item>
-      <title>About me</title>
+      <title>About Me</title>
       <link>https://procrypt.github.io/page/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
       <guid>https://procrypt.github.io/page/about/</guid>
-      <description>####My name is Abhishek Pratap Singh. I have the following qualities:
+      <description>My name is Abhishek Pratap Singh. I have the following qualities:
  I love programming in Go, and everything about Linux I&amp;rsquo;m extremely loyal to my family :)  </description>
     </item>
     

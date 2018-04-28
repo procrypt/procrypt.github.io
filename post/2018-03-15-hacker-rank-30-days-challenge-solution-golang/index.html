@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Hacker Rank 30 Days Challenge in Golang</title>
+  <meta property="og:title" content="Hacker Rank 30 Days Challenge in Golang" />
+  <meta name="twitter:title" content="Hacker Rank 30 Days Challenge in Golang" />
+  <meta name="description" content="Day 0: Hello, World. Task To complete this challenge, you must save a line of input from stdin to a variable, print Hello, World. on a single line, and finally print the value of your variable on a second line.
+package main import ( &#34;fmt&#34; &#34;bufio&#34; &#34;os&#34; ) func main() { reader := bufio.NewReader(os.Stdin) inputString, _ := reader.ReadString(&#39;\n&#39;) fmt.Println(&#34;Hello, World.&#34;) fmt.Println(inputString) } Day 1: Data Type Task  Declare 3 variables: one of type int, one of type double, and one of type String.">
+  <meta property="og:description" content="Day 0: Hello, World. Task To complete this challenge, you must save a line of input from stdin to a variable, print Hello, World. on a single line, and finally print the value of your variable on a second line.
+package main import ( &#34;fmt&#34; &#34;bufio&#34; &#34;os&#34; ) func main() { reader := bufio.NewReader(os.Stdin) inputString, _ := reader.ReadString(&#39;\n&#39;) fmt.Println(&#34;Hello, World.&#34;) fmt.Println(inputString) } Day 1: Data Type Task  Declare 3 variables: one of type int, one of type double, and one of type String.">
+  <meta name="twitter:description" content="Day 0: Hello, World. Task To complete this challenge, you must save a line of input from stdin to a variable, print Hello, World. on a single line, and finally print the value of your variable on a …">
+  <meta name="author" content="Abhishek Pratap Singh"/>
+  <link href='https://procrypt.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://procrypt.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://procrypt.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@username" />
+  <meta name="twitter:creator" content="@username" />
+  <meta property="og:url" content="https://procrypt.github.io/post/2018-03-15-hacker-rank-30-days-challenge-solution-golang/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Abhishek Pratap Singh" />
+
+  <meta name="generator" content="Hugo 0.41-DEV" />
+  <link rel="canonical" href="https://procrypt.github.io/post/2018-03-15-hacker-rank-30-days-challenge-solution-golang/" />
+  <link rel="alternate" href="https://procrypt.github.io/index.xml" type="application/rss+xml" title="Abhishek Pratap Singh">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://procrypt.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://procrypt.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://procrypt.github.io/css/codeblock.css" />
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://procrypt.github.io">Abhishek Pratap Singh</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Abhishek Pratap Singh" href="https://procrypt.github.io">
+            <img class="avatar-img" src="https://procrypt.github.io/img/avatar-icon.png" alt="Abhishek Pratap Singh" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Hacker Rank 30 Days Challenge in Golang</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 15, 2018
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 4 minutes (789 words)
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h2 id="day-0-hello-world">Day 0: Hello, World.</h2>
+
+<h5 id="task">Task</h5>
+
+<p>To complete this challenge, you must save a line of input from stdin to a variable, print Hello, World. on a single line, and finally print the value of your variable on a second line.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+    <span class="s">&#34;bufio&#34;</span>
+    <span class="s">&#34;os&#34;</span>
+<span class="p">)</span>
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">reader</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
+    <span class="nx">inputString</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">reader</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;Hello, World.&#34;</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">inputString</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<h2 id="day-1-data-type">Day 1: Data Type</h2>
+
+<h5 id="task-1">Task</h5>
+
+<ol>
+<li><p>Declare 3 variables: one of type int, one of type double, and one of type String.</p></li>
+
+<li><p>Read 3 lines of input from stdin (according to the sequence given in the Input Format section below) and initialize your 3 variables.</p></li>
+
+<li><p>Use the <code>+</code> operator to perform the following operations:</p>
+
+<ol>
+<li><p>Print the sum of <code>i</code> plus your int variable on a new line.</p></li>
+
+<li><p>Print the sum of <code>d</code> plus your double variable to a scale of one decimal place on a new line.</p></li>
+
+<li><p>Concatenate <code>s</code> with the string you read as input and print the result on a new line.</p></li>
+</ol></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+
+<span class="kn">import</span> <span class="p">(</span>
+  <span class="s">&#34;fmt&#34;</span>
+  <span class="s">&#34;os&#34;</span>
+  <span class="s">&#34;bufio&#34;</span>
+  <span class="s">&#34;strconv&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Ignore this comment. You can still use the package &#34;strconv&#34;.
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span> 
+  
+    <span class="kd">var</span> <span class="nx">i</span> <span class="kt">uint64</span> <span class="p">=</span> <span class="mi">4</span>
+    <span class="kd">var</span> <span class="nx">d</span> <span class="kt">float64</span> <span class="p">=</span> <span class="mf">4.0</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;HackerRank &#34;</span>
+
+    <span class="nx">scanner</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewScanner</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
+    
+    <span class="c1">// Declare second integer, double, and String variables.
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">j</span> <span class="kt">uint64</span>
+    <span class="kd">var</span> <span class="nx">e</span> <span class="kt">float64</span>
+    <span class="kd">var</span> <span class="nx">t</span> <span class="kt">string</span>
+
+    <span class="c1">// Read and save an integer, double, and String to your variables.
+</span><span class="c1"></span>    <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scan</span><span class="p">()</span>
+    <span class="nx">j</span><span class="p">,</span><span class="nx">_</span> <span class="p">=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseUint</span><span class="p">(</span><span class="nx">scanner</span><span class="p">.</span><span class="nx">Text</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+    <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scan</span><span class="p">()</span>
+    <span class="nx">e</span><span class="p">,</span><span class="nx">_</span> <span class="p">=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseFloat</span><span class="p">(</span><span class="nx">scanner</span><span class="p">.</span><span class="nx">Text</span><span class="p">(),</span> <span class="mi">32</span><span class="p">)</span>
+    <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scan</span><span class="p">()</span>
+    <span class="nx">t</span> <span class="p">=</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Text</span><span class="p">()</span>
+
+    <span class="c1">// Print the sum of both integer variables on a new line.
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="nx">j</span><span class="p">)</span>
+ 
+    <span class="c1">// Print the sum of the double variables on a new line.
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%.1f\n&#34;</span><span class="p">,</span><span class="nx">d</span><span class="o">+</span><span class="nx">e</span><span class="p">)</span>
+    
+    <span class="c1">// Concatenate and print the String variables on a new line
+</span><span class="c1"></span>    <span class="c1">// The &#39;s&#39; variable above should be printed first.
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s</span><span class="o">+</span><span class="nx">t</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<h2 id="day-2-operators">Day 2: Operators</h2>
+
+<h4 id="task-2">Task</h4>
+
+<p>Given the meal price (base cost of a meal), tip percent (the percentage of the meal price being added as tip), and tax percent (the percentage of the meal price being added as tax) for a meal, find and print the meal&rsquo;s total cost.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">var</span> <span class="p">(</span>
+	<span class="nx">mealCost</span> <span class="kt">float64</span>
+	<span class="nx">tipPercent</span> <span class="kt">float64</span>
+	<span class="nx">taxPercent</span> <span class="kt">float64</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">mealCost</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tipPercent</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">taxPercent</span><span class="p">)</span>
+
+	<span class="nx">tip</span> <span class="o">:=</span> <span class="nx">mealCost</span><span class="o">*</span><span class="nx">tipPercent</span><span class="o">/</span><span class="mi">100</span>
+	<span class="nx">tax</span> <span class="o">:=</span> <span class="nx">mealCost</span><span class="o">*</span><span class="nx">taxPercent</span><span class="o">/</span><span class="mi">100</span>
+	<span class="nx">totalCost</span> <span class="o">:=</span> <span class="nx">mealCost</span> <span class="o">+</span> <span class="nx">tip</span> <span class="o">+</span> <span class="nx">tax</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;The total meal cost is %v dollars.\n&#34;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nx">totalCost</span><span class="o">+</span><span class="mf">.5</span><span class="p">))</span>
+<span class="p">}</span></code></pre></div>
+<h2 id="day-3-intro-to-conditional-statements">Day 3: Intro to Conditional Statements</h2>
+
+<h4 id="task-3">Task</h4>
+
+<p>Given an integer,<code>n</code>, perform the following conditional actions:</p>
+
+<p>If <code>n</code> is odd, print <code>Weird</code></p>
+
+<p>If <code>n</code> is even and in the inclusive range of 2 to 5, print <code>Not Weird</code></p>
+
+<p>If <code>n</code> is even and in the inclusive range of 6 to 20, print <code>Weird</code></p>
+
+<p>If <code>n</code> is even and greater than 20, print <code>Not Weird</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">var</span> <span class="nx">n</span> <span class="kt">int</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">n</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;Weird&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="mi">6</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="nx">i</span> <span class="p">{</span>
+				<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;Not Weird&#34;</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">6</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="mi">21</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="nx">i</span> <span class="p">{</span>
+				<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;Weird&#34;</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span> <span class="p">&gt;</span> <span class="mi">20</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;Not Weird&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<h2 id="day4-class-vs-instance">Day4: Class vs. Instance</h2>
+
+<h4 id="task-4">Task</h4>
+
+<p>Write a Person class with an instance variable,<em>age</em>, and a constructor that takes an integer,<code>initialAge</code>, as a parameter. The constructor must assign <code>initailAge</code> to <code>Age</code> after confirming the argument passed as <code>initialAge</code> is not negative; if a negative argument is passed as <code>initialAge</code>, the constructor should set <code>age</code> to <code>0</code> and print <code>Age is not valid, setting age to 0.</code>. In addition, you must write the following instance methods:</p>
+
+<p>1.<em>yearPasses()</em> should increase the  instance variable by .</p>
+
+<p>2.<em>amIOld()</em> should perform the following conditional actions:</p>
+
+<ol>
+<li><p>If <code>age</code>&lt;13, print You are young..</p></li>
+
+<li><p>If <code>age</code>&gt;= and , print <code>You are a teenager.</code>.</p></li>
+
+<li><p>Otherwise, print <code>You are old.</code>.</p></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">type</span> <span class="nx">person</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">age</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="nx">person</span><span class="p">)</span> <span class="nx">NewPerson</span><span class="p">(</span><span class="nx">initialAge</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">person</span> <span class="p">{</span>
+	<span class="c1">//Add some more code to run some checks on initialAge
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">initialAge</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">p</span><span class="p">.</span><span class="nx">age</span> <span class="p">=</span> <span class="mi">0</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;Age is not valid, setting age to 0.&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">p</span><span class="p">.</span><span class="nx">age</span> <span class="p">=</span> <span class="nx">initialAge</span>
+	<span class="k">return</span> <span class="nx">p</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="nx">person</span><span class="p">)</span> <span class="nx">amIOld</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">//Do some computation in here and print out the correct statement to the console
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">age</span> <span class="p">&lt;</span> <span class="mi">13</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;You are young.&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">age</span> <span class="p">&gt;</span> <span class="mi">12</span> <span class="o">&amp;&amp;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">age</span> <span class="p">&lt;</span> <span class="mi">18</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;You are a teenager.&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">age</span> <span class="p">&gt;</span> <span class="mi">17</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;You are old.&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="nx">person</span><span class="p">)</span> <span class="nx">yearPasses</span><span class="p">()</span> <span class="nx">person</span> <span class="p">{</span>
+	<span class="c1">//Increment the age of the person in here
+</span><span class="c1"></span>	<span class="nx">p</span><span class="p">.</span><span class="nx">age</span><span class="o">++</span>
+	<span class="k">return</span> <span class="nx">p</span>
+<span class="p">}</span>
+
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">T</span><span class="p">,</span> <span class="nx">age</span> <span class="kt">int</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">T</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">T</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">age</span><span class="p">)</span>
+		<span class="nx">p</span> <span class="o">:=</span> <span class="nx">person</span><span class="p">{</span><span class="nx">age</span><span class="p">:</span> <span class="nx">age</span><span class="p">}</span>
+		<span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">NewPerson</span><span class="p">(</span><span class="nx">age</span><span class="p">)</span>
+		<span class="nx">p</span><span class="p">.</span><span class="nx">amIOld</span><span class="p">()</span>
+		<span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="mi">3</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">{</span>
+			<span class="nx">p</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">yearPasses</span><span class="p">()</span>
+		<span class="p">}</span>
+		<span class="nx">p</span><span class="p">.</span><span class="nx">amIOld</span><span class="p">()</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://procrypt.github.io/post/2017-06-01-sorting-structs-in-golang/" data-toggle="tooltip" data-placement="top" title="Sorting Structs in Golang">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:abhishek@linux.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/procrypt" title="Facebook">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/procrypt" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/username" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/procrypt" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/procrypt" title="Instagram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://open.spotify.com/user/procrypt" title="Spotify">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-spotify fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://paypal.me/procrypt" title="PayPal">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-paypal fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://telegram.me/procrypt" title="Telegram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://procrypt.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="procrypt.github.io">Abhishek Pratap Singh</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://procrypt.github.io">Abhishek Pratap Singh</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.41-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://procrypt.github.io/js/main.js"></script>
+<script src="https://procrypt.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://procrypt.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

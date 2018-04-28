@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>abhishek@linux.com (Abhishek Pratap Singh)</managingEditor>
     <webMaster>abhishek@linux.com (Abhishek Pratap Singh)</webMaster>
-    <lastBuildDate>Thu, 01 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 15 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://procrypt.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hacker Rank 30 Days Challenge in Golang</title>
+      <link>https://procrypt.github.io/post/2018-03-15-hacker-rank-30-days-challenge-solution-golang/</link>
+      <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/post/2018-03-15-hacker-rank-30-days-challenge-solution-golang/</guid>
+      <description>Day 0: Hello, World. Task To complete this challenge, you must save a line of input from stdin to a variable, print Hello, World. on a single line, and finally print the value of your variable on a second line.
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;bufio&amp;#34; &amp;#34;os&amp;#34; ) func main() { reader := bufio.NewReader(os.Stdin) inputString, _ := reader.ReadString(&amp;#39;\n&amp;#39;) fmt.Println(&amp;#34;Hello, World.&amp;#34;) fmt.Println(inputString) } Day 1: Data Type Task  Declare 3 variables: one of type int, one of type double, and one of type String.</description>
+    </item>
     
     <item>
       <title>Sorting Structs in Golang</title>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Getting started with OpenShift</title>
+  <meta property="og:title" content="Getting started with OpenShift" />
+  <meta name="twitter:title" content="Getting started with OpenShift" />
+  <meta name="description" content="OpenShift is Red Hat&rsquo;s PaaS (Platform-as-a-Service) that allow developers to quickly develop, host, and scale applications in cloud. Based on top of Docker containers and the Kubernetes container cluster manager, OpenShift adds developer and operational centric tools to enable rapid application development, easy deployment and scaling, and long-term lifecycle maintenance for small and large teams and applications.
+There are a couple of ways by which you can setup your OpenShift cluster like minishift , oc cluster up.">
+  <meta property="og:description" content="OpenShift is Red Hat&rsquo;s PaaS (Platform-as-a-Service) that allow developers to quickly develop, host, and scale applications in cloud. Based on top of Docker containers and the Kubernetes container cluster manager, OpenShift adds developer and operational centric tools to enable rapid application development, easy deployment and scaling, and long-term lifecycle maintenance for small and large teams and applications.
+There are a couple of ways by which you can setup your OpenShift cluster like minishift , oc cluster up.">
+  <meta name="twitter:description" content="OpenShift is Red Hat&rsquo;s PaaS (Platform-as-a-Service) that allow developers to quickly develop, host, and scale applications in cloud. Based on top of Docker containers and the Kubernetes …">
+  <meta name="author" content="Abhishek Pratap Singh"/>
+  <link href='https://procrypt.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://procrypt.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://procrypt.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@username" />
+  <meta name="twitter:creator" content="@username" />
+  <meta property="og:url" content="https://procrypt.github.io/post/2016-12-08-getting-started-with-openshift/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Abhishek Pratap Singh" />
+
+  <meta name="generator" content="Hugo 0.41-DEV" />
+  <link rel="canonical" href="https://procrypt.github.io/post/2016-12-08-getting-started-with-openshift/" />
+  <link rel="alternate" href="https://procrypt.github.io/index.xml" type="application/rss+xml" title="Abhishek Pratap Singh">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://procrypt.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://procrypt.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://procrypt.github.io/css/codeblock.css" />
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://procrypt.github.io">Abhishek Pratap Singh</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Abhishek Pratap Singh" href="https://procrypt.github.io">
+            <img class="avatar-img" src="https://procrypt.github.io/img/avatar-icon.png" alt="Abhishek Pratap Singh" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Getting started with OpenShift</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on December 8, 2016
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 5 minutes (877 words)
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p><a href="https://www.openshift.org">OpenShift</a> is Red Hat&rsquo;s PaaS (Platform-as-a-Service) that allow developers to quickly develop, host, and scale applications in cloud.
+Based on top of Docker containers and the Kubernetes container cluster manager, OpenShift adds developer and operational centric tools to enable rapid application development, easy deployment and scaling, and long-term lifecycle maintenance for small and large teams and applications.</p>
+
+<p>There are a couple of ways by which you can setup your OpenShift cluster like <a href="https://github.com/minishift/minishift">minishift</a> , <a href="https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md">oc cluster up</a>.
+We will be using <code>oc cluster up</code> for this blog.</p>
+
+<h4 id="setting-up-single-node-openshift-cluster-using-oc-cluster-up">Setting up single node Openshift cluster using <code>oc cluster up</code></h4>
+
+<h5 id="install-docker-daemon-on-your-machine">Install docker-daemon on your machine</h5>
+
+<p><code>$ sudo dnf install -y docker   engine</code></p>
+
+<h5 id="enable-docker-service">Enable docker service</h5>
+
+<p><code>$ sudo systemctl enable docker.service</code></p>
+
+<h5 id="start-the-docker-daemon">Start the docker daemon</h5>
+
+<p><code>$ sudo systemctl start docker</code></p>
+
+<h5 id="to-run-docker-without-sudo-add-user-to-docker-group-and-reboot-the-system">To run docker without sudo add user to docker group and reboot the system</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ sudo gpasswd -a &lt;user&gt; docker
+    $ init <span class="m">6</span></code></pre></div>
+<p>Configure the Docker daemon with an insecure registry parameter of 172.30.0.0/16
+  Edit your <code>/etc/sysconfig/docker</code> file and add the following line</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">     $ <span class="nv">INSECURE_REGISTRY</span><span class="o">=</span><span class="s1">&#39;--insecure-registry 172.30.0.0/16&#39;</span> <span class="sb">`</span>
+     $ sudo systemctl <span class="nb">enable</span> docker.service</code></pre></div>
+<p><strong>NOTE: We can run <code>oc cluster up</code> without the insecure registry by using <code>--skip-registry-flag=true</code> flag.</strong></p>
+
+<h5 id="start-openshift-single-node-cluster">Start OpenShift single node cluster</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">     $ oc cluster up
+    -- Checking OpenShift client ... OK
+    -- Checking Docker client ... OK
+    -- Checking Docker version ... OK
+    -- Checking <span class="k">for</span> existing OpenShift container ... OK
+    -- Checking <span class="k">for</span> openshift/origin:v1.5.0-alpha.0 image ... OK
+    -- Checking <span class="k">for</span> available ports ... OK
+    -- Checking <span class="nb">type</span> of volume mount ... 
+       Using nsenter mounter <span class="k">for</span> OpenShift volumes
+    -- Creating host directories ... OK
+    -- Finding server IP ... 
+       Using <span class="m">192</span>.168.121.96 as the server IP
+    -- Starting OpenShift container ... 
+       Creating initial OpenShift configuration
+       Starting OpenShift using container <span class="s1">&#39;origin&#39;</span>
+       Waiting <span class="k">for</span> API server to start listening
+       OpenShift server started
+    -- Adding default OAuthClient redirect URIs ... OK
+    -- Installing registry ... OK
+    -- Installing router ... OK
+    -- Importing image streams ... OK
+    -- Importing templates ... OK
+    -- Login to server ... OK
+    -- Creating initial project <span class="s2">&#34;myproject&#34;</span> ... OK
+    -- Removing temporary directory ... OK
+    -- Server Information ... 
+       OpenShift server started.
+       The server is accessible via web console at:
+           https://192.168.121.96:8443
+    
+       You are logged in as:
+           User:     developer
+           Password: developer
+    
+       To login as administrator:
+           oc login -u system:admin</code></pre></div>
+<p>This will start you single node OpenShift cluster on your system.</p>
+
+<h4 id="deplyoing-application-on-openshift">Deplyoing application on OpenShift</h4>
+
+<p>We will deploy guestbook application to our single node cluster, using the <a href="https://github.com/procrypt/kompose-example/blob/master/docker-compose.yml">docker-compose</a> file.
+For creating the OpenShift artifacts from Dockerfile we will you <a href="http://procrypt.xyz/2016/Getting-started-with-Kompose/">Kompose</a></p>
+
+<h5 id="login-to-openshift">Login to OpenShift</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   $ oc login
+   Authentication required <span class="k">for</span> https://192.168.121.96:8443 <span class="o">(</span>openshift<span class="o">)</span>
+   Username: admin
+   Password: 
+   Login successful.
+   
+   You don<span class="err">&#39;</span>t have any projects. You can try to create a new project, by running
+   
+       oc new-project &lt;projectname&gt;</code></pre></div>
+<h5 id="create-new-project">Create new project</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ oc new-project guestbook
+    Now using project <span class="s2">&#34;guestbook&#34;</span> on server <span class="s2">&#34;https://192.168.121.96:8443&#34;</span>.
+    
+    You can add applications to this project with the <span class="s1">&#39;new-app&#39;</span> command. For example, try:
+    
+        oc new-app centos/ruby-22-centos7~https://github.com/openshift/ruby-ex.git
+    
+    to build a new example application in Ruby.</code></pre></div>
+<p>We need to change the security context in OpenShift since by default OpenShift doesn&rsquo;t allows to run container with root access. We need to login with OpenShift administrator to make the changes.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ oc login -u system:admin
+    $ oc edit scc restricted</code></pre></div>
+<p>Change the <code>runAsUser</code> strategy to <code>RunAsAny</code>.</p>
+
+<h5 id="login-again-as-developer-user">Login again as developer user</h5>
+
+<p><code>$ oc login -u developer</code></p>
+
+<h5 id="we-can-now-see-the-project-in-the-web-console">We can now see the project in the web console.</h5>
+
+<p><img src="https://github.com/procrypt/images/blob/master/web-ui.png?raw=true" alt="Image" /></p>
+
+<h5 id="create-openshift-artifacts-from-docker-compose-https-github-com-procrypt-kompose-example-blob-master-docker-compose-yml-file">Create OpenShift Artifacts from <a href="https://github.com/procrypt/kompose-example/blob/master/docker-compose.yml">docker-compose</a> file.</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ kompose -f docker-compose.yml --provider<span class="o">=</span>openshift convert -y
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-service.yaml&#34;</span> created         
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-service.yaml&#34;</span> created     
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-service.yaml&#34;</span> created      
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-deploymentconfig.yaml&#34;</span> created 
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-imagestream.yaml&#34;</span> created     
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-deploymentconfig.yaml&#34;</span> created 
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-imagestream.yaml&#34;</span> created 
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-deploymentconfig.yaml&#34;</span> created 
+    INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-imagestream.yaml&#34;</span> created  </code></pre></div>
+<h5 id="create-a-folder-and-move-all-the-generated-files-to-that-folder">Create a folder and move all the generated files to that folder</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   $ mkdir guestbook
+   $ mv frontend-* guestbook
+   $ mv redis-* guestbook</code></pre></div>
+<h5 id="deploy-the-application">Deploy the application</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   $ oc create -f guestbook/
+    deploymentconfig <span class="s2">&#34;frontend&#34;</span> created
+    imagestream <span class="s2">&#34;frontend&#34;</span> created
+    service <span class="s2">&#34;frontend&#34;</span> created
+    deploymentconfig <span class="s2">&#34;redis-master&#34;</span> created
+    imagestream <span class="s2">&#34;redis-master&#34;</span> created
+    service <span class="s2">&#34;redis-master&#34;</span> created
+    deploymentconfig <span class="s2">&#34;redis-slave&#34;</span> created
+    imagestream <span class="s2">&#34;redis-slave&#34;</span> created
+    service <span class="s2">&#34;redis-slave&#34;</span> created</code></pre></div>
+<h5 id="your-application-has-been-deployed-to-openshift-for-details">Your application has been deployed to OpenShift, for details</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ oc get dc,svc,is,pvc,pods
+    NAME              REVISION   DESIRED   CURRENT   TRIGGERED BY
+    dc/frontend       <span class="m">1</span>          <span class="m">1</span>         <span class="m">0</span>         config,image<span class="o">(</span>frontend:v4<span class="o">)</span>
+    dc/redis-master   <span class="m">1</span>          <span class="m">1</span>         <span class="m">0</span>         config,image<span class="o">(</span>redis-master:e2e<span class="o">)</span>
+    dc/redis-slave    <span class="m">0</span>          <span class="m">1</span>         <span class="m">0</span>         config,image<span class="o">(</span>redis-slave:v1<span class="o">)</span>
+    
+    NAME               CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>    AGE
+    svc/frontend       <span class="m">172</span>.30.10.147   &lt;none&gt;        <span class="m">80</span>/TCP     40s
+    svc/redis-master   <span class="m">172</span>.30.8.180    &lt;none&gt;        <span class="m">6379</span>/TCP   39s
+    svc/redis-slave    <span class="m">172</span>.30.28.207   &lt;none&gt;        <span class="m">6379</span>/TCP   39s
+    
+    NAME              DOCKER REPO                                 TAGS      UPDATED
+    is/frontend       <span class="m">172</span>.30.44.119:5000/guestbook/frontend       v4        <span class="m">25</span> seconds ago
+    is/redis-master   <span class="m">172</span>.30.44.119:5000/guestbook/redis-master   e2e       <span class="m">24</span> seconds ago
+    is/redis-slave    <span class="m">172</span>.30.44.119:5000/guestbook/redis-slave    v1        
+    
+    NAME                      READY     STATUS    RESTARTS   AGE
+    po/frontend-1-y9bca       <span class="m">1</span>/1       Running   <span class="m">0</span>          2m
+    po/redis-master-1-meqjr   <span class="m">1</span>/1       Running   <span class="m">0</span>          2m</code></pre></div>
+<h5 id="web-console-of-the-application-being-deployed">Web console of the application being deployed</h5>
+
+<p><img src="https://github.com/procrypt/files/blob/master/detail.png?raw=true" alt="Image" /></p>
+
+<h5 id="we-now-need-to-expose-the-service-so-that-application-to-make-it-accessible-to-public">We now need to expose the service so that application to make it accessible to public.</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   $ oc get svc
+    NAME           CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>    AGE
+    frontend       <span class="m">172</span>.30.10.147   &lt;none&gt;        <span class="m">80</span>/TCP     12m
+    redis-master   <span class="m">172</span>.30.8.180    &lt;none&gt;        <span class="m">6379</span>/TCP   12m
+    redis-slave    <span class="m">172</span>.30.28.207   &lt;none&gt;        <span class="m">6379</span>/TCP   12m
+
+   $ oc expose svc frontend
+    route <span class="s2">&#34;frontend&#34;</span> exposed
+    
+   $ oc get route
+    NAME       HOST/PORT                                  PATH      SERVICES   PORT      TERMINATION
+    frontend   frontend-guestbook.192.168.121.96.xip.io             frontend   <span class="m">80</span>        </code></pre></div>
+<h5 id="access-the-application">Access the application.</h5>
+
+<p><img src="https://github.com/procrypt/files/blob/master/output.png?raw=true" alt="Image" /></p>
+
+<p>We have successfully deployed the guestbook application on OpenShift.</p>
+
+<h5 id="openshift-cheat-sheet">OpenShift Cheat Sheet.</h5>
+
+<p><code>$ oc type</code></p>
+
+<p>It will give you a quick summary of different conceptual types and definitions user in OpenShift.
+Also check out <code>oc help</code> and <code>oc --help</code>  to see description and examples and learn how to use the commands.</p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://procrypt.github.io/post/2016-11-02-getting-started-with-kompose/" data-toggle="tooltip" data-placement="top" title="Getting started with Kompose">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://procrypt.github.io/post/2016-12-16-installing-minikube/" data-toggle="tooltip" data-placement="top" title="Installing Minikube">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:abhishek@linux.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/procrypt" title="Facebook">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/procrypt" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/username" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/procrypt" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/procrypt" title="Instagram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://open.spotify.com/user/procrypt" title="Spotify">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-spotify fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://paypal.me/procrypt" title="PayPal">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-paypal fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://telegram.me/procrypt" title="Telegram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://procrypt.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="procrypt.github.io">Abhishek Pratap Singh</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://procrypt.github.io">Abhishek Pratap Singh</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.41-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://procrypt.github.io/js/main.js"></script>
+<script src="https://procrypt.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://procrypt.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

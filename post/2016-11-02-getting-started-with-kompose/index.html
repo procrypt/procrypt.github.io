@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Getting started with Kompose</title>
+  <meta property="og:title" content="Getting started with Kompose" />
+  <meta name="twitter:title" content="Getting started with Kompose" />
+  <meta name="description" content="kompose is a tool to help users, familiar with docker-compose, move to Kubernetes. It takes a Docker Compose file and translates it into Kubernetes resources.
+kompose is a convenience tool to go from local Docker development to managing your application with Kubernetes. We don&rsquo;t assume that the transformation from docker compose format to Kubernetes API objects will be perfect, but it helps tremendously to start Kubernetizing your application.
+In this example we will create OpenShift artifacts for guestbook app from the docker-compose file using kompose.">
+  <meta property="og:description" content="kompose is a tool to help users, familiar with docker-compose, move to Kubernetes. It takes a Docker Compose file and translates it into Kubernetes resources.
+kompose is a convenience tool to go from local Docker development to managing your application with Kubernetes. We don&rsquo;t assume that the transformation from docker compose format to Kubernetes API objects will be perfect, but it helps tremendously to start Kubernetizing your application.
+In this example we will create OpenShift artifacts for guestbook app from the docker-compose file using kompose.">
+  <meta name="twitter:description" content="kompose is a tool to help users, familiar with docker-compose, move to Kubernetes. It takes a Docker Compose file and translates it into Kubernetes resources.
+kompose is a convenience tool to go from …">
+  <meta name="author" content="Abhishek Pratap Singh"/>
+  <link href='https://procrypt.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://procrypt.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://procrypt.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@username" />
+  <meta name="twitter:creator" content="@username" />
+  <meta property="og:url" content="https://procrypt.github.io/post/2016-11-02-getting-started-with-kompose/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Abhishek Pratap Singh" />
+
+  <meta name="generator" content="Hugo 0.41-DEV" />
+  <link rel="canonical" href="https://procrypt.github.io/post/2016-11-02-getting-started-with-kompose/" />
+  <link rel="alternate" href="https://procrypt.github.io/index.xml" type="application/rss+xml" title="Abhishek Pratap Singh">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://procrypt.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://procrypt.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://procrypt.github.io/css/codeblock.css" />
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://procrypt.github.io">Abhishek Pratap Singh</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Abhishek Pratap Singh" href="https://procrypt.github.io">
+            <img class="avatar-img" src="https://procrypt.github.io/img/avatar-icon.png" alt="Abhishek Pratap Singh" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Getting started with Kompose</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on November 16, 2016
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 5 minutes (973 words)
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p><code>kompose</code> is a tool to help users, familiar with <code>docker-compose</code>, move to <a href="http://kubernetes.io">Kubernetes</a>. It takes a Docker Compose file and translates it into Kubernetes resources.</p>
+
+<p><code>kompose</code> is a convenience tool to go from local Docker development to managing your application with Kubernetes. We don&rsquo;t assume that the transformation from docker compose format to Kubernetes API objects will be perfect, but it helps tremendously to start <em>Kubernetizing</em> your application.</p>
+
+<p>In this example we will create OpenShift artifacts for guestbook app from the docker-compose file using <code>kompose</code>.</p>
+
+<h2 id="creating-openshift-artifacts">Creating OpenShift artifacts.</h2>
+
+<p>This step will create the service.json, deploymentconfig.json and imagestream.json files for OpenShift.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kompose --provider<span class="o">=</span>openshift convert
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-service.json&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-service.json&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-service.json&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-deploymentconfig.json&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-imagestream.json&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-deploymentconfig.json&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-imagestream.json&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-deploymentconfig.json&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-imagestream.json&#34;</span> created</code></pre></div>
+<p>Once generated, you can inspect the files and edit these files if you want to make some adddional changes as per your requirement.</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;kind&#34;</span><span class="p">:</span> <span class="s2">&#34;DeploymentConfig&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;apiVersion&#34;</span><span class="p">:</span> <span class="s2">&#34;v1&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;metadata&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;redis-master&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;creationTimestamp&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&#34;labels&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;redis-master&#34;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;spec&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;strategy&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;resources&#34;</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;triggers&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;ConfigChange&#34;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;ImageChange&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;imageChangeParams&#34;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&#34;automatic&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nt">&#34;containerNames&#34;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&#34;redis-master&#34;</span>
+          <span class="p">],</span>
+          <span class="nt">&#34;from&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;kind&#34;</span><span class="p">:</span> <span class="s2">&#34;ImageStreamTag&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;redis-master:e2e&#34;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;replicas&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&#34;test&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&#34;selector&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;redis-master&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;metadata&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;creationTimestamp&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nt">&#34;labels&#34;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&#34;service&#34;</span><span class="p">:</span> <span class="s2">&#34;redis-master&#34;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&#34;spec&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;containers&#34;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;redis-master&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;image&#34;</span><span class="p">:</span> <span class="s2">&#34; &#34;</span><span class="p">,</span>
+            <span class="nt">&#34;ports&#34;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                <span class="nt">&#34;containerPort&#34;</span><span class="p">:</span> <span class="mi">6379</span><span class="p">,</span>
+                <span class="nt">&#34;protocol&#34;</span><span class="p">:</span> <span class="s2">&#34;TCP&#34;</span>
+              <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;resources&#34;</span><span class="p">:</span> <span class="p">{}</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">&#34;restartPolicy&#34;</span><span class="p">:</span> <span class="s2">&#34;Always&#34;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span></code></pre></div>
+<p>If you prefer <code>YAML</code> files instead of <code>JSON</code>, you can do that using the <code>-y</code> option like so :</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kompose --provider<span class="o">=</span>openshift convert -y
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-service.yaml&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-service.yaml&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-service.yaml&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-deploymentconfig.yaml&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-slave-imagestream.yaml&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-deploymentconfig.yaml&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;frontend-imagestream.yaml&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-deploymentconfig.yaml&#34;</span> created
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> file <span class="s2">&#34;redis-master-imagestream.yaml&#34;</span> created</code></pre></div>
+<p>You can inspect the file and make some additional changes, if required.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>DeploymentConfig<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>creationTimestamp<span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>service<span class="p">:</span><span class="w"> </span>redis-slave<span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>redis-slave<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>replicas<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>service<span class="p">:</span><span class="w"> </span>redis-slave<span class="w">
+</span><span class="w">  </span>strategy<span class="p">:</span><span class="w">
+</span><span class="w">    </span>resources<span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">  </span>template<span class="p">:</span><span class="w">
+</span><span class="w">    </span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">      </span>creationTimestamp<span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="w">      </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">        </span>service<span class="p">:</span><span class="w"> </span>redis-slave<span class="w">
+</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
+</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>env<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>GET_HOSTS_FROM<span class="w">
+</span><span class="w">          </span>value<span class="p">:</span><span class="w"> </span>dns<span class="w">
+</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w">
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>redis-slave<span class="w">
+</span><span class="w">        </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>containerPort<span class="p">:</span><span class="w"> </span><span class="m">6379</span><span class="w">
+</span><span class="w">          </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">        </span>resources<span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">      </span>restartPolicy<span class="p">:</span><span class="w"> </span>Always<span class="w">
+</span><span class="w">  </span>test<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span>triggers<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>type<span class="p">:</span><span class="w"> </span>ConfigChange<span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>imageChangeParams<span class="p">:</span><span class="w">
+</span><span class="w">      </span>automatic<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span>containerNames<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>redis-slave<span class="w">
+</span><span class="w">      </span>from<span class="p">:</span><span class="w">
+</span><span class="w">        </span>kind<span class="p">:</span><span class="w"> </span>ImageStreamTag<span class="w">
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>redis-slave<span class="p">:</span>v1<span class="w">
+</span><span class="w">    </span>type<span class="p">:</span><span class="w"> </span>ImageChange<span class="w">
+</span><span class="w"></span>status<span class="p">:</span><span class="w"> </span>{}</code></pre></div>
+<h2 id="deploy-your-application-on-openshift">Deploy your application on OpenShift</h2>
+
+<p>There are two ways in which you can deploy the application on OpenShift.</p>
+
+<h5 id="1-using-openshift-cli">1) Using OpenShift cli</h5>
+
+<p><code>$ oc create -f &lt;path/to/artifacts&gt;</code></p>
+
+<p>Parse a configuration file and create one or more OpenShift objects based on the file contents.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">deploymentconfig <span class="s2">&#34;frontend&#34;</span> created
+imagestream <span class="s2">&#34;frontend&#34;</span> created
+service <span class="s2">&#34;frontend&#34;</span> created
+deploymentconfig <span class="s2">&#34;redis-master&#34;</span> created
+imagestream <span class="s2">&#34;redis-master&#34;</span> created
+service <span class="s2">&#34;redis-master&#34;</span> created
+deploymentconfig <span class="s2">&#34;redis-slave&#34;</span> created
+imagestream <span class="s2">&#34;redis-slave&#34;</span> created
+service <span class="s2">&#34;redis-slave&#34;</span> created</code></pre></div>
+<h5 id="view-the-services-and-deploymentconfig-on-openshift">View the Services and Deploymentconfig on OpenShift</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ oc get svc
+
+NAME           CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>    AGE
+frontend       <span class="m">172</span>.30.99.116   &lt;none&gt;        <span class="m">80</span>/TCP     2m
+redis-master   <span class="m">172</span>.30.94.229   &lt;none&gt;        <span class="m">6379</span>/TCP   2m
+redis-slave    <span class="m">172</span>.30.43.20    &lt;none&gt;        <span class="m">6379</span>/TCP   2m</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ oc get dc
+
+NAME           REVISION   REPLICAS   TRIGGERED BY
+frontend       <span class="m">1</span>          <span class="m">1</span>          config,image<span class="o">(</span>frontend:v4<span class="o">)</span>
+redis-master   <span class="m">1</span>          <span class="m">1</span>          config,image<span class="o">(</span>redis-master:e2e<span class="o">)</span>
+redis-slave    <span class="m">0</span>          <span class="m">1</span>          config,image<span class="o">(</span>redis-slave:v1<span class="o">)</span></code></pre></div>
+<h5 id="next-take-a-look-at-the-pods-created-by-the-deployments">Next, take a look at the pods created by the deployments</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ oc get pods
+
+NAME                   READY     STATUS    RESTARTS   AGE
+frontend-1-ojsux       <span class="m">1</span>/1       Running   <span class="m">0</span>          4m
+redis-master-1-1ep72   <span class="m">1</span>/1       Running   <span class="m">0</span>          4m</code></pre></div>
+<h5 id="verify-the-application">Verify the application</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ curl &lt;frontend-ip&gt;:80
+
+&lt;html ng-app<span class="o">=</span><span class="s2">&#34;redis&#34;</span>&gt;
+  &lt;head&gt;
+    &lt;title&gt;Guestbook&lt;/title&gt;
+    &lt;link <span class="nv">rel</span><span class="o">=</span><span class="s2">&#34;stylesheet&#34;</span> <span class="nv">href</span><span class="o">=</span><span class="s2">&#34;//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css&#34;</span>&gt;
+    &lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js&#34;</span>&gt;&lt;/script&gt;
+    &lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;controllers.js&#34;</span>&gt;&lt;/script&gt;
+    &lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js&#34;</span>&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body ng-controller<span class="o">=</span><span class="s2">&#34;RedisCtrl&#34;</span>&gt;
+    &lt;div <span class="nv">style</span><span class="o">=</span><span class="s2">&#34;width: 50%; margin-left: 20px&#34;</span>&gt;
+      &lt;h2&gt;Guestbook&lt;/h2&gt;
+    &lt;form&gt;
+    &lt;fieldset&gt;
+    &lt;input ng-model<span class="o">=</span><span class="s2">&#34;msg&#34;</span> <span class="nv">placeholder</span><span class="o">=</span><span class="s2">&#34;Messages&#34;</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&#34;form-control&#34;</span> <span class="nv">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;input&#34;</span>&gt;&lt;br&gt;
+    &lt;button <span class="nv">type</span><span class="o">=</span><span class="s2">&#34;button&#34;</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&#34;btn btn-primary&#34;</span> ng-click<span class="o">=</span><span class="s2">&#34;controller.onRedis()&#34;</span>&gt;Submit&lt;/button&gt;
+    &lt;/fieldset&gt;
+    &lt;/form&gt;
+    &lt;div&gt;
+      &lt;div ng-repeat<span class="o">=</span><span class="s2">&#34;msg in messages track by </span><span class="nv">$index</span><span class="s2">&#34;</span>&gt;
+        <span class="o">{{</span>msg<span class="o">}}</span>
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+<p>That&rsquo;s it! Your application has been deployed on OpenShift in just 2 simple steps.</p>
+
+<p><strong>Note: We can create route, that will expose the frontend service. But this has to be done manually by running <code>oc expose frontend</code> because kompose doesn&rsquo;t support that yet.</strong></p>
+
+<p>Asciinema for the above steps.
+<a href="https://asciinema.org/a/5snir7l4ccvcstgtugll7z41e"><img src="https://asciinema.org/a/5snir7l4ccvcstgtugll7z41e.png" alt="asciicast" /></a></p>
+
+<h4 id="2-using-kompose-cli">2) Using kompose cli</h4>
+
+<p>There is one more way to deploy your aplication directly on OpenShift if you do not want to inspect the artifacts created by kompose. Hence you can completely skip step 1 mentioned in the previous method mentioned above</p>
+
+<p><code>$ kompose --provider openshift up</code></p>
+
+<p>This will crate the OpenShift artifacts and deploy it at the same time.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">We are going to create OpenShift DeploymentConfigs and Services <span class="k">for</span> your Dockerized application.
+If you need different kind of resources, use the <span class="s1">&#39;kompose convert&#39;</span> and <span class="s1">&#39;oc create -f&#39;</span> commands instead.
+
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created service: frontend
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created service: redis-master
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created service: redis-slave
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created deployment: frontend
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created ImageStream: frontend
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created deployment: redis-master
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created ImageStream: redis-master
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created deployment: redis-slave
+INFO<span class="o">[</span><span class="m">0000</span><span class="o">]</span> Successfully created ImageStream: redis-slave
+
+Your application has been deployed to OpenShift. You can run <span class="s1">&#39;oc get dc,svc,is&#39;</span> <span class="k">for</span> details.</code></pre></div>
+<h5 id="view-the-services-deploymentconfig-imagestream-and-pods-created-on-openshift">View the Services, Deploymentconfig, ImageStream and Pods created on OpenShift</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ oc get svc
+
+NAME           CLUSTER-IP       EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>    AGE
+frontend       <span class="m">172</span>.30.152.108   &lt;none&gt;        <span class="m">80</span>/TCP     3m
+redis-master   <span class="m">172</span>.30.31.110    &lt;none&gt;        <span class="m">6379</span>/TCP   3m
+redis-slave    <span class="m">172</span>.30.220.107   &lt;none&gt;        <span class="m">6379</span>/TCP   3m</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ oc get dc
+
+NAME           REVISION   REPLICAS   TRIGGERED BY
+frontend       <span class="m">1</span>          <span class="m">1</span>          config,image<span class="o">(</span>frontend:v4<span class="o">)</span>
+redis-master   <span class="m">1</span>          <span class="m">1</span>          config,image<span class="o">(</span>redis-master:e2e<span class="o">)</span>
+redis-slave    <span class="m">0</span>          <span class="m">1</span>          config,image<span class="o">(</span>redis-slave:v1<span class="o">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ oc get is
+
+NAME           DOCKER REPO                                 TAGS      UPDATED
+frontend       <span class="m">172</span>.30.78.228:5000/guestbook/frontend       v4        <span class="m">5</span> minutes ago
+redis-master   <span class="m">172</span>.30.78.228:5000/guestbook/redis-master   e2e       <span class="m">5</span> minutes ago
+redis-slave    <span class="m">172</span>.30.78.228:5000/guestbook/redis-slave    v1</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ oc get pods
+
+NAME                   READY     STATUS    RESTARTS   AGE
+frontend-1-3dx8l       <span class="m">1</span>/1       Running   <span class="m">0</span>          3m
+redis-master-1-skbbu   <span class="m">1</span>/1       Running   <span class="m">0</span>          3m</code></pre></div>
+<h5 id="verify-the-application-1">Verify the application</h5>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ curl &lt;frontend-ip&gt;:80
+
+&lt;html ng-app<span class="o">=</span><span class="s2">&#34;redis&#34;</span>&gt;
+  &lt;head&gt;
+    &lt;title&gt;Guestbook&lt;/title&gt;
+    &lt;link <span class="nv">rel</span><span class="o">=</span><span class="s2">&#34;stylesheet&#34;</span> <span class="nv">href</span><span class="o">=</span><span class="s2">&#34;//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css&#34;</span>&gt;
+    &lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js&#34;</span>&gt;&lt;/script&gt;
+    &lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;controllers.js&#34;</span>&gt;&lt;/script&gt;
+    &lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js&#34;</span>&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body ng-controller<span class="o">=</span><span class="s2">&#34;RedisCtrl&#34;</span>&gt;
+    &lt;div <span class="nv">style</span><span class="o">=</span><span class="s2">&#34;width: 50%; margin-left: 20px&#34;</span>&gt;
+      &lt;h2&gt;Guestbook&lt;/h2&gt;
+    &lt;form&gt;
+    &lt;fieldset&gt;
+    &lt;input ng-model<span class="o">=</span><span class="s2">&#34;msg&#34;</span> <span class="nv">placeholder</span><span class="o">=</span><span class="s2">&#34;Messages&#34;</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&#34;form-control&#34;</span> <span class="nv">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;input&#34;</span>&gt;&lt;br&gt;
+    &lt;button <span class="nv">type</span><span class="o">=</span><span class="s2">&#34;button&#34;</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&#34;btn btn-primary&#34;</span> ng-click<span class="o">=</span><span class="s2">&#34;controller.onRedis()&#34;</span>&gt;Submit&lt;/button&gt;
+    &lt;/fieldset&gt;
+    &lt;/form&gt;
+    &lt;div&gt;
+      &lt;div ng-repeat<span class="o">=</span><span class="s2">&#34;msg in messages track by </span><span class="nv">$index</span><span class="s2">&#34;</span>&gt;
+        <span class="o">{{</span>msg<span class="o">}}</span>
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+<p>Your application has been deployed on OpenShift using one single command.</p>
+
+<p><strong>Note: We can create route, that will expose the frontend service. But this has to be done manually by running <code>oc expose frontend</code> because kompose doesn&rsquo;t support that yet.</strong></p>
+
+<p>Asciinema of the above steps.
+<a href="https://asciinema.org/a/7z2ispckpi8gxi4r1xv8xs08i"><img src="https://asciinema.org/a/7z2ispckpi8gxi4r1xv8xs08i.png" alt="asciicast" /></a></p>
+
+<h2 id="more">More</h2>
+
+<p><code>kompose</code> can do more. Feel free to explore it <a href="https://github.com/kubernetes-incubator/kompose">here</a>.</p>
+
+<p><code>kompose --help</code> to find out more options.</p>
+
+<p>Use <code>kompose convert --help</code> to find more about the convert sub command.</p>
+
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://procrypt.github.io/post/2016-11-08-getting-started-with-ansible-container/" data-toggle="tooltip" data-placement="top" title="Getting started with Ansible Containers">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://procrypt.github.io/post/2016-12-08-getting-started-with-openshift/" data-toggle="tooltip" data-placement="top" title="Getting started with OpenShift">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:abhishek@linux.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/procrypt" title="Facebook">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/procrypt" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/username" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/procrypt" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/procrypt" title="Instagram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://open.spotify.com/user/procrypt" title="Spotify">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-spotify fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://paypal.me/procrypt" title="PayPal">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-paypal fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://telegram.me/procrypt" title="Telegram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://procrypt.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="procrypt.github.io">Abhishek Pratap Singh</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://procrypt.github.io">Abhishek Pratap Singh</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.41-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://procrypt.github.io/js/main.js"></script>
+<script src="https://procrypt.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://procrypt.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

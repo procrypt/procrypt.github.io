@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abhishek Pratap Singh</title>
+    <link>https://procrypt.github.io/</link>
+    <description>Recent content on Abhishek Pratap Singh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>abhishek@linux.com (Abhishek Pratap Singh)</managingEditor>
+    <webMaster>abhishek@linux.com (Abhishek Pratap Singh)</webMaster>
+    <lastBuildDate>Wed, 21 Feb 2018 02:36:08 -0500</lastBuildDate>
+    
+	<atom:link href="https://procrypt.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My First Post</title>
+      <link>https://procrypt.github.io/posts/my-first-post/</link>
+      <pubDate>Wed, 21 Feb 2018 02:36:08 -0500</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/posts/my-first-post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sorting Structs in Golang</title>
+      <link>https://procrypt.github.io/post/2017-06-01-sorting-structs-in-golang/</link>
+      <pubDate>Thu, 01 Jun 2017 00:00:00 +0000</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/post/2017-06-01-sorting-structs-in-golang/</guid>
+      <description>We can not directly use the sorting library Sort for sorting structs in Golang. In order to sort a struct the underlying struct should implement a special interface called sort.Interface
+This interface requires three methods
+Len, Swap and Less
+Let&amp;rsquo;s try to understand this using an example.
+Define a struct type EnvVar struct { Name string value string } Here we have a struct struct named EnvVar with two fields Name and value</description>
+    </item>
+    
+    <item>
+      <title>Setting up Multinode OpenShift Cluster</title>
+      <link>https://procrypt.github.io/post/2017-2-22-setting-up-multinode-openshift-cluster/</link>
+      <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/post/2017-2-22-setting-up-multinode-openshift-cluster/</guid>
+      <description>OpenShift is Red Hat&amp;rsquo;s PaaS (Platform-as-a-Service) that allow developers to quickly develop, host, and scale applications in cloud. Based on top of Docker containers and the Kubernetes container cluster manager, OpenShift adds developer and operational centric tools to enable rapid application development, easy deployment and scaling, and long-term lifecycle maintenance for small and large teams and applications.
+In this blog, we will be setting up a Multinode OpenShift Cluster (Single Master with two nodes) and will deploy a sample application on it.</description>
+    </item>
+    
+    <item>
+      <title>Installing Minikube</title>
+      <link>https://procrypt.github.io/post/2016-12-16-installing-minikube/</link>
+      <pubDate>Fri, 16 Dec 2016 00:00:00 +0000</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/post/2016-12-16-installing-minikube/</guid>
+      <description>Kubernetes is a container orchestration tool developed by Google, written completely in Golang. It provides a platform for deployment, scaling and automating your application in a containerized environment. Kubernetes helps you scale up your application with ease and make deployment quick. Containerize an application by creating Docker config files and build processes to produce all the necessary Docker images Configure and launch an auto-scaling, self-healing Kubernetes cluster. It is sometimes very difficult to set up a Kubernetes cluster bit thanks to minikube we can set it it up within few commands so that you can run a single node Kunbernetes cluster locally.</description>
+    </item>
+    
+    <item>
+      <title>Getting started with OpenShift</title>
+      <link>https://procrypt.github.io/post/2016-12-08-getting-started-with-openshift/</link>
+      <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/post/2016-12-08-getting-started-with-openshift/</guid>
+      <description>OpenShift is Red Hat&amp;rsquo;s PaaS (Platform-as-a-Service) that allow developers to quickly develop, host, and scale applications in cloud. Based on top of Docker containers and the Kubernetes container cluster manager, OpenShift adds developer and operational centric tools to enable rapid application development, easy deployment and scaling, and long-term lifecycle maintenance for small and large teams and applications.
+There are a couple of ways by which you can setup your OpenShift cluster like minishift , oc cluster up.</description>
+    </item>
+    
+    <item>
+      <title>Getting started with Kompose</title>
+      <link>https://procrypt.github.io/post/2016-11-02-getting-started-with-kompose/</link>
+      <pubDate>Wed, 16 Nov 2016 00:00:00 +0000</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/post/2016-11-02-getting-started-with-kompose/</guid>
+      <description>kompose is a tool to help users, familiar with docker-compose, move to Kubernetes. It takes a Docker Compose file and translates it into Kubernetes resources.
+kompose is a convenience tool to go from local Docker development to managing your application with Kubernetes. We don&amp;rsquo;t assume that the transformation from docker compose format to Kubernetes API objects will be perfect, but it helps tremendously to start Kubernetizing your application.
+In this example we will create OpenShift artifacts for guestbook app from the docker-compose file using kompose.</description>
+    </item>
+    
+    <item>
+      <title>Getting started with Ansible Containers</title>
+      <link>https://procrypt.github.io/post/2016-11-08-getting-started-with-ansible-container/</link>
+      <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/post/2016-11-08-getting-started-with-ansible-container/</guid>
+      <description>Ansible Container is the ultimate workflow for container development, testing, and deployment.
+Ansible Container enables you to build Docker images and orchestrate containers using only Ansible playbooks. Describe your application in a Docker Compose-like format and, rather than using a Dockerfile, provide a playbook with tasks for building images. Ansible Container will take it from there.
+With Ansible Container, you are no longer limited by Dockerfile. You can now apply the power of Ansible to the image build process.</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>https://procrypt.github.io/page/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>abhishek@linux.com (Abhishek Pratap Singh)</author>
+      <guid>https://procrypt.github.io/page/about/</guid>
+      <description>My name is Inigo Montoya. I have the following qualities:
+ I rock a great mustache I&amp;rsquo;m extremely loyal to my family  What else do you need?
+my history To be honest, I&amp;rsquo;m having some trouble remembering right now, so why don&amp;rsquo;t you just watch my movie and it will answer all your questions.</description>
+    </item>
+    
+  </channel>
+</rss>

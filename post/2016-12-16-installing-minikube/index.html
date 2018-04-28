@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Installing Minikube</title>
+  <meta property="og:title" content="Installing Minikube" />
+  <meta name="twitter:title" content="Installing Minikube" />
+  <meta name="description" content="Kubernetes is a container orchestration tool developed by Google, written completely in Golang. It provides a platform for deployment, scaling and automating your application in a containerized environment. Kubernetes helps you scale up your application with ease and make deployment quick. Containerize an application by creating Docker config files and build processes to produce all the necessary Docker images Configure and launch an auto-scaling, self-healing Kubernetes cluster. It is sometimes very difficult to set up a Kubernetes cluster bit thanks to minikube we can set it it up within few commands so that you can run a single node Kunbernetes cluster locally.">
+  <meta property="og:description" content="Kubernetes is a container orchestration tool developed by Google, written completely in Golang. It provides a platform for deployment, scaling and automating your application in a containerized environment. Kubernetes helps you scale up your application with ease and make deployment quick. Containerize an application by creating Docker config files and build processes to produce all the necessary Docker images Configure and launch an auto-scaling, self-healing Kubernetes cluster. It is sometimes very difficult to set up a Kubernetes cluster bit thanks to minikube we can set it it up within few commands so that you can run a single node Kunbernetes cluster locally.">
+  <meta name="twitter:description" content="Kubernetes is a container orchestration tool developed by Google, written completely in Golang. It provides a platform for deployment, scaling and automating your application in a containerized …">
+  <meta name="author" content="Abhishek Pratap Singh"/>
+  <link href='https://procrypt.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://procrypt.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://procrypt.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@username" />
+  <meta name="twitter:creator" content="@username" />
+  <meta property="og:url" content="https://procrypt.github.io/post/2016-12-16-installing-minikube/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Abhishek Pratap Singh" />
+
+  <meta name="generator" content="Hugo 0.41-DEV" />
+  <link rel="canonical" href="https://procrypt.github.io/post/2016-12-16-installing-minikube/" />
+  <link rel="alternate" href="https://procrypt.github.io/index.xml" type="application/rss+xml" title="Abhishek Pratap Singh">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://procrypt.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://procrypt.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://procrypt.github.io/css/codeblock.css" />
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://procrypt.github.io">Abhishek Pratap Singh</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Abhishek Pratap Singh" href="https://procrypt.github.io">
+            <img class="avatar-img" src="https://procrypt.github.io/img/avatar-icon.png" alt="Abhishek Pratap Singh" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Installing Minikube</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on December 16, 2016
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 3 minutes (591 words)
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p><strong>Kubernetes</strong> is a container orchestration tool developed by Google, written completely in Golang. It provides a platform for deployment, scaling and automating your application in a containerized environment. Kubernetes helps you scale up your application with ease and make deployment quick. Containerize an application by creating Docker config files and build processes to produce all the necessary Docker images Configure and launch an auto-scaling, self-healing Kubernetes cluster.
+It is sometimes very difficult to set up a Kubernetes cluster bit thanks to <code>minikube</code> we can set it it up within few commands so that you can run a single node Kunbernetes cluster locally.</p>
+
+<h3 id="what-is-minikube">What is minikube?</h3>
+
+<p><strong>minikube</strong> is tool that gives you the ability to run a single node Kubernetes cluster locally inside a Virtual Machine. It supports a number of hypervisers like KVM and VirtulBox for Linux, Hyper-V for Windows and xhyve driver for OS-X. It supports a variety of Kubernetes features like ConfigMaps, Secrets, NodePort and Dashboard.
+We will be using <code>minikube</code> for Linux in this tutorial.</p>
+
+<h3 id="prerequisites-for-installing-minikube">Prerequisites for installing minikube</h3>
+
+<ol>
+<li><p>VirtualBox should be installed on your system.
+To install VirtualBox on CentOS</p>
+
+<p><code>$ yum install VirtualBox-5.1</code></p></li>
+
+<li><p><strong>kubectl</strong> should be in your PATH.</p>
+
+<p><code>kubectl</code> is a command line tool which is used to interact with Kubernetes cluster from command line.</p>
+
+<p>Download <code>kubectl</code> and put it in your PATH.</p></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ wget https://storage.googleapis.com/kubernetes-release/release/v1.4.4/bin/linux/amd64/kubectl
+    $ chmod +x kubectl
+    $ mv kubectl /usr/local/bin/kubectl
+    $ kubectl 
+    kubectl controls the Kubernetes cluster manager.
+    
+    Find more information at https://github.com/kubernetes/kubernetes.
+    
+    Usage:
+      kubectl <span class="o">[</span>flags<span class="o">]</span>
+      kubectl <span class="o">[</span>command<span class="o">]</span></code></pre></div>
+<p><code>kubectl</code> will provide you a bunch of commands and it will handy if we enable bash completion. The bash completion script is generated automatically you just need to add it in your <strong>~/.bashrc</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ <span class="nb">echo</span> <span class="s2">&#34;source &lt;(kubectl completion bash)&#34;</span> &gt;&gt; ~/.bashrc<span class="sb">`</span>
+    $ <span class="nb">source</span> ~/.bashrc</code></pre></div>
+<h3 id="installing-minikube">Installing minikube</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.14.0/minikube-linux-amd64
+    $ chmod +x minikube 
+    $ sudo mv minikube /usr/local/bin/</code></pre></div>
+<p>That&rsquo;s it <code>minikube</code> is now installed and is in your PATH.</p>
+
+<h3 id="starting-minikube">Starting minikube</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">     $ minikube start
+     Starting <span class="nb">local</span> Kubernetes cluster...
+     Kubectl is now configured to use the cluster.</code></pre></div>
+<p>Here we are using VirtualBox as our hypervisor but, if you want to switch to different hypervisor use <code>--vm-flag=&lt;hypervisor&gt;</code> eg. <code>--vm-flag=kvm</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $ minikube --vm-driver<span class="o">=</span>kvm start
+      Starting <span class="nb">local</span> Kubernetes cluster...
+      Kubectl is now configured to use the cluster.</code></pre></div>
+<p>Now we have full-blown single node Kubernetes cluster running inside a virtual machine. Don&rsquo;t worry about the system resources used by the VM since, is a boot2docker ISO which is a lightweight Linux distribution of Core OS running completely on RAM, made specially to run docker container.</p>
+
+<p>All the deployment will be done inside the VM, we need not to ssh inside the VM, but we can using <code>minikube ssh</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">      $ minikube ssh
+                            <span class="c1">##         .
+</span><span class="c1"></span>                      <span class="c1">## ## ##        ==
+</span><span class="c1"></span>                   <span class="c1">## ## ## ## ##    ===
+</span><span class="c1"></span>               /<span class="s2">&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;\___/ ===
+</span><span class="s2">          ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~
+</span><span class="s2">               \______ o           __/
+</span><span class="s2">                 \    \         __/
+</span><span class="s2">                  \____\_______/
+</span><span class="s2">     _                 _   ____     _            _
+</span><span class="s2">    | |__   ___   ___ | |_|___ \ __| | ___   ___| | _____ _ __
+</span><span class="s2">    | &#39;_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ &#39;__|
+</span><span class="s2">    | |_) | (_) | (_) | |_ / __/ (_| | (_) | (__|   &lt;  __/ |
+</span><span class="s2">    |_.__/ \___/ \___/ \__|_____\__,_|\___/ \___|_|\_\___|_|
+</span><span class="s2">    Boot2Docker version 1.11.1, build master : 901340f - Fri Jul  1 22:52:19 UTC 2016
+</span><span class="s2">    Docker version 1.11.1, build 5604cbe</span></code></pre></div>
+<h3 id="access-minikube-dashboard">Access minikube dashboard</h3>
+
+<p><code>$ minikube dashboard</code></p>
+
+<p><img src="https://github.com/procrypt/files/blob/master/minikube-dashboard.png?raw=true" alt="Image" /></p>
+
+<p>That&rsquo;s it! Now you can use <code>kubectl</code> to deploy your application.</p>
+
+<h3 id="stop-minikube-cluster">Stop minikube cluster</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   $ minikube stop
+     Stopping <span class="nb">local</span> Kubernetes cluster...
+     Machine stopped.</code></pre></div>
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://procrypt.github.io/post/2016-12-08-getting-started-with-openshift/" data-toggle="tooltip" data-placement="top" title="Getting started with OpenShift">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://procrypt.github.io/post/2017-2-22-setting-up-multinode-openshift-cluster/" data-toggle="tooltip" data-placement="top" title="Setting up Multinode OpenShift Cluster">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:abhishek@linux.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/procrypt" title="Facebook">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/procrypt" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/username" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/procrypt" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/procrypt" title="Instagram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://open.spotify.com/user/procrypt" title="Spotify">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-spotify fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://paypal.me/procrypt" title="PayPal">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-paypal fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://telegram.me/procrypt" title="Telegram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://procrypt.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="procrypt.github.io">Abhishek Pratap Singh</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://procrypt.github.io">Abhishek Pratap Singh</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.41-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://procrypt.github.io/js/main.js"></script>
+<script src="https://procrypt.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://procrypt.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
